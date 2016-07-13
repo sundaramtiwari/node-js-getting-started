@@ -40,6 +40,32 @@ app.post('/webhook', function (request, response){
 	response.sendStatus(200)
 })
 
+var token = "EAAWTwEeH64wBAN25EZBgwyoVv6XFA9mWFqEejaphUYZBCkljZBiwpmdUEqjvZCTLRhqyZBKPLXEk34YMmJchkqf0OfAQXRp4budp3QaaVKTux1yAzGAJeMuUJsZAIPAXpSBG75ZCt2KE8S3ybRW7loiumUiAKYZCQ3Oz0UrMuMUGpAZDZD";
+
+function sendTextMessage(sender, text) {
+    var messageData = {
+        text:text
+    }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token:token},
+        method: 'POST',
+        json: {
+            recipient: {id:sender},
+            message: messageData
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending message: ', error);
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error);
+        }
+        else{
+            console.log("Sent msg : "+text);
+        }
+    });
+}
+
 app.get('/', function(request, response) {
   response.render('pages/index');
 });
