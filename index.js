@@ -28,7 +28,6 @@ app.get('/webhook/', function (request, response) {
 
 app.post('/webhook', function (request, response) {
   var data = request.body;
-  console.log('Data: ' + data);
   // Make sure this is a page subscription
   if (data.object == 'page') {
     // Iterate over each entry
@@ -71,7 +70,7 @@ function receivedMessage(event) {
 
   console.log("Received message for user %d and page %d at %d with message:", 
     senderID, recipientID, timeOfMessage);
-  console.log(JSON.stringify(message));
+  console.log('message: ' + JSON.stringify(message));
 
   var messageId = message.mid;
 
@@ -86,11 +85,11 @@ function receivedMessage(event) {
     // the text we received.
     switch (messageText) {
       case 'image':
-        sendImageMessage(senderID);
+        // sendImageMessage(senderID);
         break;
 
       case 'button':
-        sendButtonMessage(senderID);
+        // sendButtonMessage(senderID);
         break;
 
       case 'generic':
@@ -98,7 +97,7 @@ function receivedMessage(event) {
         break;
 
       case 'receipt':
-        sendReceiptMessage(senderID);
+        // sendReceiptMessage(senderID);
         break;
 
       default:
